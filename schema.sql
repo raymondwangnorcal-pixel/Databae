@@ -1,6 +1,3 @@
--- DataBae schema (PostgreSQL)
--- entity sets only for now, relationships come later
-
 CREATE TABLE users (
     email       VARCHAR(255) PRIMARY KEY
                 CHECK (email = LOWER(email) AND email LIKE '%@columbia.edu'),
@@ -43,7 +40,6 @@ CREATE TABLE department (
     offered_minor  BOOLEAN NOT NULL DEFAULT FALSE
 );
 
--- call numbers are per section per term, so term is part of the key
 CREATE TABLE class_section (
     call_number  VARCHAR(10) NOT NULL CHECK (call_number ~ '^[0-9]{5}$'),
     term         VARCHAR(20) NOT NULL CHECK (term ~ '^(Spring|Summer|Fall) [0-9]{4}$'),
