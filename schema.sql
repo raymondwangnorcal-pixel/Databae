@@ -28,3 +28,19 @@ CREATE TABLE report (
     report_reason  VARCHAR(500),
     created_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE department (
+    name           VARCHAR(100) PRIMARY KEY,
+    housed_at      VARCHAR(100),
+    offered_major  BOOLEAN NOT NULL DEFAULT FALSE,
+    offered_minor  BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- call numbers are per section per term, so term is part of the key
+CREATE TABLE class_section (
+    call_number  VARCHAR(10) NOT NULL,
+    term         VARCHAR(20) NOT NULL,
+    course_name  VARCHAR(200) NOT NULL,
+    professor    VARCHAR(100),
+    PRIMARY KEY (call_number, term)
+);
