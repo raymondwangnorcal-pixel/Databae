@@ -1,0 +1,6 @@
+# keep the repo to the sql
+.DS_Store
+*.pdf
+*.png
+docs/
+tmp/
