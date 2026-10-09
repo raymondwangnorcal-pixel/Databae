@@ -1,4 +1,5 @@
--- PostgreSQL schema derived from the DataBae E/R diagram.
+--DataBae Schema for Project 1, part 1 of Introduction to Databases
+--Raymond Wang, Rebecca Pliskin
 
 CREATE TABLE profile (
     uni                 CHAR(10),
@@ -88,3 +89,26 @@ CREATE TABLE enrolled_in (
     FOREIGN KEY (call_number) REFERENCES classes(call_number)
         ON DELETE NO ACTION
 );
+
+/*
+ 
+-- Major limit: A profile may be associated with at most two departments through a has_program relationship where program_type = 'major'. There is no corresponding limit on minors. 
+-- Program availability: A has_program relationship is valid only if the associated department offers the selected program type, as indicated by offered_major or offered_minor.
+-- Self-reported status: A status submission with status = 'not looking' is valid only if the submitting user claims the profile referenced by that submission.
+-- Verified submitter: A status submission is valid only if the submitting user has verified = TRUE.
+-- Permanent claims: Once a user claims a profile, users.claimed_uni may not be changed.
+
+Constraints:
+A program type is allowed only if the department offers it
+A status can be "single" or "taken" or "not looking"
+"not looking" is self-report only
+Each profile may have at most two majors and any number of minors. A profile may not have both a major and a minor in the same department.
+"friends with" is symmetric but profile cannot be friends with itself
+Each unordered pair of profiles represents only one friendship
+Emails must be Columbia or Barnard addresses
+Only verified users can submit a status
+Claims are permanent once established
+A program_type can be either "major" or "minor"
+
+
+*/
