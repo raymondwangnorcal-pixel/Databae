@@ -16,7 +16,7 @@ CREATE TABLE profile (
 
 CREATE TABLE department (
     name                VARCHAR(100),
-    housed_at           VARCHAR(100),
+    housed_at           VARCHAR(100) NOT NULL,
     offered_major       BOOLEAN NOT NULL,
     offered_minor       BOOLEAN NOT NULL,
     PRIMARY KEY (name),
@@ -45,7 +45,7 @@ CREATE TABLE users (
     UNIQUE (claimed_uni),
     FOREIGN KEY (claimed_uni) REFERENCES profile(uni)
         ON DELETE NO ACTION,
-    CHECK (
+    CONSTRAINT users_email_domain CHECK (
         LOWER(email) LIKE '_%@columbia.edu'
         OR LOWER(email) LIKE '_%@barnard.edu'
     ),
@@ -61,6 +61,7 @@ CREATE TABLE status_submission (
     submitter_email     VARCHAR(100) NOT NULL,
     profile_uni         VARCHAR(10) NOT NULL,
     PRIMARY KEY (sid),
+    UNIQUE (submitter_email, profile_uni, created_at),
     FOREIGN KEY (submitter_email) REFERENCES users(email)
         ON DELETE NO ACTION,
     FOREIGN KEY (profile_uni) REFERENCES profile(uni)
